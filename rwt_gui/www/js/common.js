@@ -34,7 +34,9 @@
       };
     };
 
-    core_ns.Component = function(callbacks){
+    core_ns.Component = function(args, callbacks){
+      this.name = args.name;
+      this.topic_name = args.topic;
       if (typeof callbacks === 'undefined') return;
       for (var i = 0, l = callbacks.length; i < l; i++){
         var cstr = callbacks[i];

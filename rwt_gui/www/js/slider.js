@@ -2,9 +2,7 @@
   var ns = rwt_gui.util.addNamespace(namespace);
 
   var Slider = function(args){
-    rwt_gui.core.Component.call(this, ["onchange"]);
-    this.name = args.name;
-    this.topic_name = args.topic;
+    rwt_gui.core.Component.call(this, args, ["onchange"]);
     this.min_value = args.min_value;
     this.max_value = args.max_value;
     this.step = args.step || 1;

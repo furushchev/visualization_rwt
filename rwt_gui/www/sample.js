@@ -6,7 +6,7 @@ $(function(){
     name: "sample-slider",
     topic: "sample_slider",
     min_value: 0,
-    max_value: 100
+    max_value: 255
   });
 
   $('#rwt-slider').after(slider.html());
@@ -18,5 +18,13 @@ $(function(){
   });
 
   $('#sample-slider').after(str.html());
+
+  var cimg = new rwt_gui.image.CompressedImageView({
+    name: "sample-img",
+    topic: "sample_img_compressed"
+  });
+
+  console.log(cimg.html());
+  $('#rwt-img').after(cimg.html());
 
 });

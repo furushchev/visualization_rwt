@@ -2,10 +2,7 @@
   var ns = rwt_gui.util.addNamespace(namespace);
 
   var String = function(args){
-    rwt_gui.core.Component.call(this);
-    console.log(args.name);
-    this.name = args.name;
-    this.topic_name = args.topic;
+    rwt_gui.core.Component.call(this, args);
     this.value = args.default_value || "";
     this._listener = new ROSLIB.Topic({
       ros: global.ros,
