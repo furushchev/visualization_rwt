@@ -9,7 +9,13 @@ $(function(){
     max_value: 255
   });
 
-  $('#rwt-slider').after(slider.html());
+  slider.onchange.addListener(function(e){
+    if(parseInt(e.val()) === 255) {
+      alert("max!");
+    }
+  });
+
+  $('#rwt-slider').append(slider.html());
 
   var str = new rwt_gui.string.String({
     name: "sample-string",
@@ -17,14 +23,13 @@ $(function(){
     default_value: "sample"
   });
 
-  $('#sample-slider').after(str.html());
+  $('#rwt-string').append(str.html());
 
   var cimg = new rwt_gui.image.CompressedImageView({
     name: "sample-img",
     topic: "sample_img_compressed"
   });
 
-  console.log(cimg.html());
-  $('#rwt-img').after(cimg.html());
+  $('#rwt-img').append(cimg.html());
 
 });

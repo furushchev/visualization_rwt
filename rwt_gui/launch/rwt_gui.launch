@@ -8,7 +8,4 @@
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
     <arg name="port" value="8888" />
   </include>
-
-  <node name="rwt_gui_sample" pkg="rwt_gui" type="rwt_gui_sample.py"
-        output="screen" />
 </launch>

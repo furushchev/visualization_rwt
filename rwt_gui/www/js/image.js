@@ -13,7 +13,6 @@
       var img = new Image();
       img.onload = function(){
         var canvas = $('#' + that.name)[0];
-        console.log(canvas);
         canvas.getContext('2d').drawImage(img, 0, 0);
       };
       img.src = "data:image/jpeg;base64," + msg.data;
