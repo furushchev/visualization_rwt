@@ -22,7 +22,7 @@ module.exports = function(grunt) {
     concat: {
       build: {
         src: ['../src/*.js'],
-        dest: '../www/rwt_plot.js'
+        dest: '../www/js/rwt_plot.js'
       }
     },
     uglify: {
@@ -30,8 +30,8 @@ module.exports = function(grunt) {
         report: 'min'
       },
       build: {
-        src: '../www/rwt_plot.js',
-        dest: '../www/rwt_plot.min.js'
+        src: '../www/js/rwt_plot.js',
+        dest: '../www/js/rwt_plot.min.js'
       }
     },
     jshint: {
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       },
       files: [
         'Gruntfile.js',
-        '../www/rwt_plot.js'
+        '../www/js/rwt_plot.js'
       ]
     },
     watch: {
