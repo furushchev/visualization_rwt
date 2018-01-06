@@ -9,6 +9,7 @@ matrix:
   fast_finish: true
   allow_failures:
     - env: ROS_DISTRO=kinetic
+    - node_js: "0.10"
 sudo: required
 dist: trusty
 language: node_js
@@ -59,5 +60,5 @@ script:
 deploy:
   provider: script
   script: .deploy.sh
-  on:
-    branch: kinetic-devel
+  # on:
+  #   branch: kinetic-devel
