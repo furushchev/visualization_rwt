@@ -60,5 +60,5 @@ script:
 deploy:
   provider: script
   script: .deploy.sh
-  # on:
-  #   branch: kinetic-devel
+  on:
+    branch: deploy
