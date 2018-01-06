@@ -672,7 +672,7 @@ function createSliderView() {
                 }
             }
         }
-        $.getScript("js/jquery-mobile/jquery.mobile-1.3.2.min.js");
+        $.getScript("3rdparty/jquery-mobile/jquery.mobile-1.3.2.min.js");
         var msg = new ROSLIB.Message({
             data: current_group
         });
