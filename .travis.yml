@@ -1,6 +1,9 @@
 sudo: required
 dist: trusty
 language: node_js
+branches:
+  except:
+    - master
 env:
   global:
     - CI_DIR=.ci_config
@@ -67,9 +70,7 @@ deploy:
   github_token: $GH_TOKEN
   local_dir: $CI_SOURCE_PATH/public
   target_branch: master
-  # on:
-  #   branch: deploy
-stages:
-  - name: deploy
-    env: ROS_DISTRO=indigo
+  on:
+    branch: deploy
     node_js: "4"
+    condition: "$ROS_DISTRO = indigo"
