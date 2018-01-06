@@ -58,10 +58,14 @@ script:
   - cd src/visualization_rwt/rwt_plot/utils
   - npm install .
   - grunt build
+after_success:
   - chmod +x $CI_SOURCE_PATH/.deploy.sh
+  - $CI_SOURCE_PATH/.deploy.sh
 deploy:
-  provider: script
-  script: $CI_SOURCE_PATH/.deploy.sh
+  provider: pages
   skip_cleanup: true
+  github_token: $GH_TOKEN
+  local_dir: $CI_SOURCE_PATH/public
+  target_branch: master
   on:
     branch: deploy
