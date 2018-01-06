@@ -4,23 +4,29 @@ env:
   matrix:
     - ROS_DISTRO=indigo
     - ROS_DISTRO=jade
+    - ROS_DISTRO=kinetic
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: ROS_DISTRO=kinetic
 sudo: required
 dist: trusty
-# Force travis to use its minimal image with default Python settings
 language: node_js
 node_js:
   - "0.10"
   - "0.12"
   - "4"
-#notifications:
-#  Whoever receives success and/or failure via email
-before_script:
+install:
+  # Force travis to use its minimal image with default Python settings
   - sudo rm -fr /opt/python/
+  - export DEBIAN_FRONTEND=noninteractive
   - export CI_SOURCE_PATH=$(pwd)
   - export REPOSITORY_NAME=${PWD##*/}
-  - sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
+before_script:
+  - sudo sh -c 'echo "deb http://packages.ros.org/ros-shadow-fixed/ubuntu trusty main" > /etc/apt/sources.list.d/ros-latest.list'
   - wget http://packages.ros.org/ros.key -O - | sudo apt-key add -
-  - sudo apt-get update -qq
+  - sudo apt-get update -qq || echo Ignore error on apt-get update
+  - sudo apt-get install -qq -y firefox xvfb
   - sudo apt-get install -qq -y python-catkin-pkg python-catkin-tools python-rosdep python-wstool 
   - sudo apt-get install -qq -y ros-$ROS_DISTRO-ros ros-$ROS_DISTRO-catkin ros-$ROS_DISTRO-common-tutorials ros-$ROS_DISTRO-rospy-tutorials ros-$ROS_DISTRO-actionlib-tutorials
   - sudo apt-get install -qq -y ros-$ROS_DISTRO-rosbridge-server ros-$ROS_DISTRO-tf2-web-republisher 
@@ -40,9 +46,9 @@ before_script:
   - ln -s $CI_SOURCE_PATH src/${REPOSITORY_NAME}
   - ls -al src/
   - wstool info -t src
-  - sudo rosdep init || sudo rosdep init
+  - sudo rosdep init || (sudo rm -f /etc/ros/rosdep/sources.list.d/20-default.list && sudo rosdep init)
   - rosdep update
-  - rosdep install --from-paths src --ignore-src --rosdistro $ROS_DISTRO -r -y
+  - rosdep install --from-paths src --ignore-src --rosdistro $ROS_DISTRO -r -n -y
 script:
   - catkin build
   - source devel/setup.bash
@@ -50,3 +56,8 @@ script:
   - cd src/visualization_rwt/rwt_plot/utils
   - npm install .
   - grunt build
+deploy:
+  provider: script
+  script: .deploy.sh
+  on:
+    branch: kinetic-devel
