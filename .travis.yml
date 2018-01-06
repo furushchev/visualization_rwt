@@ -67,5 +67,9 @@ deploy:
   github_token: $GH_TOKEN
   local_dir: $CI_SOURCE_PATH/public
   target_branch: master
-  on:
-    branch: deploy
+  # on:
+  #   branch: deploy
+stages:
+  - name: deploy
+    env: ROS_DISTRO=indigo
+    node_js: "4"
