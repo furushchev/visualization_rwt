@@ -1,3 +1,6 @@
+sudo: required
+dist: trusty
+language: node_js
 env:
   global:
     - CI_DIR=.ci_config
@@ -5,18 +8,16 @@ env:
     - ROS_DISTRO=indigo
     - ROS_DISTRO=jade
     - ROS_DISTRO=kinetic
+node_js:
+  - "0.10"   # ubuntu 14.04
+  - "4"      # ubuntu 16.04
+  - 'stable'
+  - 'lts/*'
 matrix:
   fast_finish: true
   allow_failures:
     - env: ROS_DISTRO=kinetic
-    - node_js: "0.10"
-sudo: required
-dist: trusty
-language: node_js
-node_js:
-  - "0.10"
-  - "0.12"
-  - "4"
+    - node_js: "0.10"  # builtin nodejs on ubuntu 14.04 is too old
 install:
   # Force travis to use its minimal image with default Python settings
   - sudo rm -fr /opt/python/
@@ -58,9 +59,13 @@ script:
   - npm install .
   - grunt build
   - chmod +x $CI_SOURCE_PATH/.deploy.sh
-deploy:
-  provider: script
-  script: $CI_SOURCE_PATH/.deploy.sh
-  skip_cleanup: true
-  on:
-    branch: deploy
+jobs:
+  include:
+    stage: deploy
+    provider: script
+    script: $CI_SOURCE_PATH/.deploy.sh
+    skip_cleanup: true
+    on:
+      branch: deploy
+    env: ROS_DISTRO=kinetic
+    node_js: '4'
