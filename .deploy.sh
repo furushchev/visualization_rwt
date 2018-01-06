@@ -14,7 +14,11 @@ mkdir -p $WWWDIR
 catkin_topological_order | while read line; do
   PKGNAME=$(echo $line | awk '{print $1}')
   PKGPATH=$(echo $line | awk '{print $2}')
-  cp -r $PKGPATH/www $WWWDIR/$PKGNAME
+  if [ -d $PKGPATH/www ]; then
+    cp -r $PKGPATH/www $WWWDIR/$PKGNAME
+  else
+    echo "Package $PKGNAME does not have www directory"
+  fi
 done
 
 git config --global user.name "Travis-CI"
