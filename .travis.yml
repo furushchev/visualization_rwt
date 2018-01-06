@@ -59,13 +59,9 @@ script:
   - npm install .
   - grunt build
   - chmod +x $CI_SOURCE_PATH/.deploy.sh
-jobs:
-  include:
-    stage: deploy
-    provider: script
-    script: $CI_SOURCE_PATH/.deploy.sh
-    skip_cleanup: true
-    on:
-      branch: deploy
-    env: ROS_DISTRO=kinetic
-    node_js: '4'
+deploy:
+  provider: script
+  script: $CI_SOURCE_PATH/.deploy.sh
+  skip_cleanup: true
+  on:
+    branch: deploy
